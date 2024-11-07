@@ -11,8 +11,8 @@ main {
 
 .site-container-wrapper {
     position: relative;
-    max-height: 300px; /* Batas tinggi awal */
-    overflow: hidden;  /* Sembunyikan konten yang melampaui batas */
+    max-height: 300px; 
+    overflow: hidden;  
     width: 100%;
     transition: max-height 0.5s ease;
 }
