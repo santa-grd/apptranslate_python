@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Membuat Aplikasi Kamus dengan Python</title>
+    <style>
+        body { display:flex; flex-direction:column; font-family: Arial, sans-serif; line-height: 1.6; background-color: #f0f0f0; margin: 0; padding: 0; align-items: center;}
+        .container { max-width: 800px; margin: auto; margin-bottom: 30px; padding: 20px; background-color: #fff; }
+        h1, h2 { color: #333; }
+        code, pre { background-color: #f4f4f4; padding: 10px; display: block; overflow-x: auto; }
+        .button { background-color: #4CAF50; color: white; padding: 10px 20px; text-align: center; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 20px; }
+        footer {background-color: #f7f7f7; padding: 1px; text-align: center; font-size: 14px; color: #555; position: fixed; bottom: 0; width: 100%; border-top: 1px solid #666565;}
+        #myVideo {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 20px;
+          }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop id="myVideo">
+        <source src="scrnapp.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+      
+    <div class="container">
+        <h2>Membuat Aplikasi Penerjemah Teks dengan Python</h2>
+        <p>Di tutorial ini, kita akan membangun aplikasi penerjemah teks sederhana menggunakan Python dan pustaka Google Translate. Aplikasi ini memungkinkan pengguna untuk menerjemahkan teks dari satu bahasa ke bahasa lain dengan mudah.</p>
+        <p>Pustaka googletrans adalah modul Python yang memungkinkan kita untuk mengakses API penerjemahan Google Translate secara langsung dari kode Python.</p>
+        <h3>Prasyarat</h3>
+        <ul>
+            <li>Python 3.8 atau versi lebih baru</li>
+            <li>Perpustakaan <code>tkinter</code> untuk antarmuka pengguna</li>
+            <li>Pustaka <code>googletrans</code> untuk layanan penerjemah</li>
+        </ul>
+        
+        <h3>Langkah 1: Instalasi Pustaka</h3>
+        <p>Pastikan pustaka <code>googletrans</code> sudah terpasang. Jalankan perintah berikut di terminal atau command prompt:</p>
+        <pre><code>pip install googletrans==4.0.0-rc1</code></pre>
+        
+        <h3>Langkah 2: Kode Program</h3>
+        <p>Berikut ini adalah kode Python lengkap untuk aplikasi penerjemah teks:</p>
+        <pre><code>import tkinter as tk
+from tkinter import ttk, messagebox
+from googletrans import Translator
+
+translator = Translator()
+
+def translate_text():
+    src_lang = languages_dict[source_lang_combobox.get()]
+    target_lang = languages_dict[target_lang_combobox.get()]
+    text = input_text.get(1.0, "end-1c")
+    
+    if not text:
+        messagebox.showwarning("Input Error", "Masukkan teks yang ingin diterjemahkan.")
+        return
+    
+    try:
+        translated = translator.translate(text, src=src_lang, dest=target_lang)
+        output_text.delete(1.0, "end")
+        output_text.insert("end", translated.text)
+    except Exception as e:
+        messagebox.showerror("Translation Error", f"Gagal menerjemahkan teks: {e}")
+
+languages_dict = {
+    'Inggris': 'en',
+    'Prancis': 'fr',
+    'Spanyol': 'es',
+    'Jerman': 'de',
+    'Italia': 'it',
+    'Jepang': 'ja',
+    'Mandarin': 'zh-cn',
+    'Rusia': 'ru',
+    'Indonesia': 'id'
+}
+
+root = tk.Tk()
+root.title("Penerjemah Teks (Google Translate)")
+root.geometry("600x650")
+root.configure(bg="#f7f7f7")
+
+title_label = tk.Label(root, text="Penerjemah Teks", font=("Arial", 24, 'bold'), bg="#f7f7f7")
+title_label.pack(pady=20)
+
+frame = tk.Frame(root, bg="#f7f7f7")
+frame.pack(pady=10)
+
+source_lang_label = tk.Label(frame, text="Bahasa Sumber:", bg="#f7f7f7")
+source_lang_label.grid(row=0, column=0, padx=10, pady=5)
+source_lang_combobox = ttk.Combobox(frame, values=list(languages_dict.keys()), width=10, state='readonly')
+source_lang_combobox.grid(row=0, column=1)
+source_lang_combobox.current(0)
+
+target_lang_label = tk.Label(frame, text="Bahasa Target:", bg="#f7f7f7")
+target_lang_label.grid(row=0, column=2, padx=10, pady=5)
+target_lang_combobox = ttk.Combobox(frame, values=list(languages_dict.keys()), width=10, state='readonly')
+target_lang_combobox.grid(row=0, column=3)
+target_lang_combobox.current(8)
+
+input_text_label = tk.Label(root, text="Masukkan Teks:", bg="#f7f7f7")
+input_text_label.pack()
+input_text = tk.Text(root, height=8, width=60, font=("Arial", 12), bd=2, relief=tk.SUNKEN)
+input_text.pack(pady=10)
+
+translate_button = tk.Button(root, text="Terjemahkan", command=translate_text, bg="#4CAF50", fg="white", font=("Arial", 14), bd=0)
+translate_button.pack(pady=10, padx=20, fill=tk.X)
+
+output_text_label = tk.Label(root, text="Hasil Terjemahan:", bg="#f7f7f7")
+output_text_label.pack()
+output_text = tk.Text(root, height=8, width=60, font=("Arial", 12), bd=2, relief=tk.SUNKEN)
+output_text.pack(pady=10)
+
+root.mainloop()</code></pre>
+
+        <h3>Langkah 3: Menjalankan Aplikasi</h3>
+        <p>Jalankan kode di atas dengan menyimpan dalam file, misalnya <code>penerjemah.py</code>. Kemudian, buka terminal dan ketik:</p>
+        <pre><code>python penerjemah.py</code></pre>
+        
+        <h3>Hasil Aplikasi</h3>
+        <p>Aplikasi ini akan menampilkan antarmuka pengguna yang memungkinkan Anda memilih bahasa sumber dan bahasa target, memasukkan teks, dan melihat hasil terjemahan.</p>
+        
+        <h3>Kesimpulan</h3>
+        <p>Aplikasi ini adalah contoh sederhana untuk memahami cara menggunakan API penerjemah Google Translate di Python. Anda dapat mengembangkannya lebih lanjut dengan menambahkan fitur lain, seperti penyimpanan riwayat atau deteksi bahasa otomatis.</p>
+        <p>Perlu diketahui bahwa googletrans menggunakan layanan Google Translate yang mungkin memiliki batasan penggunaan gratis dan bergantung pada koneksi internet untuk melakukan penerjemahan.</p>
+    </div>
+    <footer>
+        <p>&copy; 2024 Geri Ramadansyah. Siapapun mempunyai hak cipta atas karyanya.</p>
+    </footer>
+</body>
+</html>
