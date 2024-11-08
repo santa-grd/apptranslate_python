@@ -7,7 +7,7 @@ function showAllSites() {
  
         siteContainerWrapper.style.maxHeight = "200px";
         fogEffect.style.display = "block"; 
-        showMoreBtn.textContent = "Tampilkan Semua Situs"; 
+        showMoreBtn.textContent = "Perluas"; 
     } else {
         siteContainerWrapper.style.maxHeight = "none";
         fogEffect.style.display = "none";
